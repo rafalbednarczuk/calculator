@@ -1,14 +1,7 @@
 package equation.parser;
 
 import actions.base.TwoParamsAction;
-import actions.base.Value;
-import actions.basic.Sum;
-import actions.basic.Sub;
-import actions.basic.Mul;
-import actions.basic.Div;
 import lombok.NoArgsConstructor;
-
-import static java.lang.Double.parseDouble;
 
 //Parsing String equation to TwoParamsAction
 @NoArgsConstructor
@@ -18,7 +11,6 @@ public class EquationParser {
         Equation equation = new Equation(_equation);
 
         return parseRecursivly(equation);
-
     }
 
     private static TwoParamsAction parseRecursivly(Equation equation) {
@@ -26,7 +18,7 @@ public class EquationParser {
             return equation.toTwoParamsAction();
         }
 
-        return null;
+        return null;//todo
     }
 
 

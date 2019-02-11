@@ -7,41 +7,106 @@ import actions.basic.Mul;
 import actions.basic.Sub;
 import actions.basic.Sum;
 import equation.parser.exception.EquationNotSimpleException;
+import equation.parser.exception.EquationWithoutOperatorException;
 import equation.parser.exception.WrongOperator;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static equation.parser.Operator.DIV;
+import static equation.parser.Operator.MUL;
+import static equation.parser.Operator.SUB;
+import static equation.parser.Operator.SUM;
 import static java.lang.Double.parseDouble;
 
 @Data
 @Builder
 class Equation {
 
-    boolean simple;
-
-    String leftOperand;
-    String rightOperand;
-
-    Operator operator;
+    private boolean simple;
+    private String leftOperand;
+    private String rightOperand;
+    private Operator operator;
 
     Equation(String _equation) {
+        if(isSimple(_equation)){
+            int operatorIndex = getOperatorIndex(_equation);
 
+            this.simple = true;
+            this.leftOperand = _equation.substring(0, operatorIndex - 1);
+            this.rightOperand = _equation.substring(operatorIndex + 1, _equation.length() - 1);
+            this.operator = parseOperator(_equation.charAt(operatorIndex));
+        }else {
+            //todo
+        }
+    }
+
+    private Operator parseOperator(char operator) {
+        switch(operator){
+            case '+':
+                return SUM;
+            case '-':
+                return SUB;
+            case '*':
+                return MUL;
+            case '/':
+                return DIV;
+            default:
+                throw new WrongOperator("Could not process operator while parsing char to enum");
+        }
+    }
+
+    private int getOperatorIndex(String equation) {
+        if(equation.indexOf('+') != -1)
+            return equation.indexOf('+');
+        if(equation.indexOf('-') != -1)
+            return equation.indexOf('-');
+        if(equation.indexOf('*') != -1)
+            return equation.indexOf('*');
+        if(equation.indexOf('/') != -1)
+            return equation.indexOf('/');
+
+        // todo dunno which one is better
+        /* return equation.indexOf('+') != -1
+                ? equation.indexOf('+')
+                : equation.indexOf('-') != -1
+                    ? equation.indexOf('-')
+                    : equation.indexOf('*') != -1
+                        ? equation.indexOf('*')
+                        : equation.indexOf('/');*/
+
+        throw new EquationWithoutOperatorException("Tried to get index of operator from equation that had none");
+    }
+
+    private boolean isSimple(String equation) {
+        return 1 == equation.chars()
+                        .mapToObj(i -> (char) i)
+                        .filter(e -> Arrays.asList('+', '-', '*', '/').contains(e))
+                        .collect(Collectors.toList())
+                        .size();
     }
 
     TwoParamsAction toTwoParamsAction() {
         if (!simple) {
-            throw new EquationNotSimpleException("Trying to conver not Simple Equation to Two Params Equation");
+            throw new EquationNotSimpleException("Trying to parse not Simple Equation to Two Params Equation");
         }
+
+        Value firstValue = new Value(parseDouble(leftOperand.trim()));
+        Value secondValue = new Value(parseDouble(rightOperand.trim()));
 
         switch (operator) {
             case SUM:
-                return new Sum(new Value(parseDouble(leftOperand)), new Value(parseDouble(rightOperand)));
+                return new Sum(firstValue, secondValue);
             case SUB:
-                return new Sub(new Value(parseDouble(leftOperand)), new Value(parseDouble(rightOperand)));
+                return new Sub(firstValue, secondValue);
             case MUL:
-                return new Mul(new Value(parseDouble(leftOperand)), new Value(parseDouble(rightOperand)));
+                return new Mul(firstValue, secondValue);
             case DIV:
-                return new Div(new Value(parseDouble(leftOperand)), new Value(parseDouble(rightOperand)));
+                return new Div(firstValue, secondValue);
             default:
                 throw new WrongOperator("Could not process operator while parsing Equation to Two Params Equation");
         }
