@@ -9,10 +9,7 @@ import actions.basic.Sum;
 import equation.parser.exception.EquationNotSimpleException;
 import equation.parser.exception.EquationWithoutOperatorException;
 import equation.parser.exception.WrongOperator;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -24,7 +21,6 @@ import static equation.parser.Operator.SUM;
 import static java.lang.Double.parseDouble;
 
 @Data
-@Builder
 class Equation {
 
     private boolean simple;
@@ -36,10 +32,11 @@ class Equation {
         if(isSimple(_equation)){
             int operatorIndex = getOperatorIndex(_equation);
 
-            this.simple = true;
-            this.leftOperand = _equation.substring(0, operatorIndex - 1);
-            this.rightOperand = _equation.substring(operatorIndex + 1, _equation.length() - 1);
-            this.operator = parseOperator(_equation.charAt(operatorIndex));
+            simple = true;
+            leftOperand = _equation.substring(0, operatorIndex - 1);
+            rightOperand = _equation.substring(operatorIndex + 1, _equation.length() - 1);
+            operator = parseOperator(_equation.charAt(operatorIndex));
+
         }else {
             //todo
         }
