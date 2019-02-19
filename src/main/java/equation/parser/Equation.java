@@ -33,7 +33,7 @@ class Equation {
             int operatorIndex = getOperatorIndex(_equation);
 
             simple = true;
-            leftOperand = _equation.substring(0, operatorIndex - 1);
+            leftOperand = _equation.substring(0, operatorIndex);
             rightOperand = _equation.substring(operatorIndex + 1);
             operator = parseOperator(_equation.charAt(operatorIndex));
 
