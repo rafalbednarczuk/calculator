@@ -34,7 +34,7 @@ class Equation {
 
             simple = true;
             leftOperand = _equation.substring(0, operatorIndex - 1);
-            rightOperand = _equation.substring(operatorIndex + 1, _equation.length() - 1);
+            rightOperand = _equation.substring(operatorIndex + 1);
             operator = parseOperator(_equation.charAt(operatorIndex));
 
         }else {

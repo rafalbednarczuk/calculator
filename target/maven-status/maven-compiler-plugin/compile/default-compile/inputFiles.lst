@@ -1,6 +1,0 @@
-/home/kamilb/IdeaProjects/calculator/src/main/java/equation/parser/Equation.java
-/home/kamilb/IdeaProjects/calculator/src/main/java/equation/parser/exception/EquationWithoutOperatorException.java
-/home/kamilb/IdeaProjects/calculator/src/main/java/equation/parser/exception/EquationNotSimpleException.java
-/home/kamilb/IdeaProjects/calculator/src/main/java/equation/parser/EquationParser.java
-/home/kamilb/IdeaProjects/calculator/src/main/java/equation/parser/exception/WrongOperator.java
-/home/kamilb/IdeaProjects/calculator/src/main/java/equation/parser/Operator.java
