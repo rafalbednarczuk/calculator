@@ -10,4 +10,5 @@ class Div(f: BaseAction, s: BaseAction) : TwoParamsAction(f, s) {
             Value(first.value / second.value)
         } else this
     }
+    
 }
