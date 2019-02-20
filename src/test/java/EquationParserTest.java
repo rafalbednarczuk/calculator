@@ -1,5 +1,4 @@
 import actions.base.BaseAction;
-import actions.base.TwoParamsAction;
 import actions.base.Value;
 import actions.basic.Div;
 import actions.basic.Mul;
@@ -71,5 +70,11 @@ class EquationParserTest {
                                                           new Value(2L)),
                                                   new Mul(new Value(1L),
                                                           new Value(3L))))));
+    }
+
+    @Test
+    void singleNumberTest(){
+        BaseAction out = EquationParser.parse(" 5 ");
+        assertEquals(out, new Value(5L));
     }
 }

@@ -7,10 +7,9 @@ import actions.basic.Mul;
 import actions.basic.Sub;
 import actions.basic.Sum;
 import equation.parser.exception.EquationWithoutOperatorException;
-import equation.parser.exception.WrongOperator;
+import equation.parser.exception.WrongOperatorException;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
@@ -22,8 +21,10 @@ import static java.lang.Double.parseDouble;
 public class EquationParser {
 
     public static BaseAction parse(String equation){
+        equation = BraceletPreProcessor.preProcess(equation);
+
         if(isSimple(equation)){
-            return  new Value(parseDouble(equation.trim()));
+            return new Value(parseDouble(equation.trim()));
         }
 
         int operatorIndex = getOperatorIndex(equation);
@@ -46,7 +47,7 @@ public class EquationParser {
             case DIV:
                 return new Div(leftOperand, rightOperand);
             default:
-                throw new WrongOperator("Could not process operator while parsing equation to Two Params Equation");
+                throw new WrongOperatorException("Could not process operator while parsing equation to Two Params Equation");
         }
     }
 
@@ -61,7 +62,7 @@ public class EquationParser {
             case '/':
                 return DIV;
             default:
-                throw new WrongOperator("Could not process operator while parsing char to enum");
+                throw new WrongOperatorException("Could not process operator while parsing char to enum");
         }
     }
 
