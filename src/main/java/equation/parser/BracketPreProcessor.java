@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 @NoArgsConstructor
-public class BracketPreProcessor {
+class BracketPreProcessor {
 
-    public static String preProcess(@NotNull String equation) {
+    static String preProcess(@NotNull String equation) {
         checkIfEqualNumberOfBrackets(equation);
 
         int bracketsToBeRemovedNmb = countStartingBraceletsNmb(equation);
