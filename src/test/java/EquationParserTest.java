@@ -26,31 +26,31 @@ class EquationParserTest {
     }
 
     @Test
-    void sumTest(){
+    void sum(){
         BaseAction out = EquationParser.parse("5 + 12");
         assertEquals(out, new Sum(new Value(5L), new Value(12L)));
     }
 
     @Test
-    void divTest(){
+    void div(){
         BaseAction out = EquationParser.parse("82  /7");
         assertEquals(out, new Div(new Value(82L), new Value(7L)));
     }
 
     @Test
-    void mulTest(){
+    void mul(){
         BaseAction out = EquationParser.parse("3 * 97");
         assertEquals(out, new Mul(new Value(3L), new Value(97L)));
     }
 
     @Test
-    void subTest(){
+    void sub(){
         BaseAction out = EquationParser.parse("21- 32");
         assertEquals(out, new Sub(new Value(21L), new Value(32L)));
     }
 
     @Test
-    void complexEquationTest1(){
+    void complexEquation1(){
         BaseAction out = EquationParser.parse("21*9 - 8 - 9/3 + 2");
         assertEquals(out, new Sub(new Mul(new Value(21L),
                                           new Value(9L)),
@@ -61,7 +61,7 @@ class EquationParserTest {
     }
 
     @Test
-    void complexEquationTest2(){
+    void complexEquation2(){
         BaseAction out = EquationParser.parse("13 *3- 2 - 6 / 2  +   1*  3");
         assertEquals(out, new Sub(new Mul(new Value(13L),
                                           new Value(3L)),
@@ -73,7 +73,7 @@ class EquationParserTest {
     }
 
     @Test
-    void singleNumberTest(){
+    void singleNumber(){
         BaseAction out = EquationParser.parse(" 5 ");
         assertEquals(out, new Value(5L));
     }

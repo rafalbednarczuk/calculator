@@ -8,12 +8,25 @@ import org.jetbrains.annotations.NotNull;
 public class BracketPreProcessor {
 
     public static String preProcess(@NotNull String equation) {
+        checkIfEqualNumberOfBrackets(equation);
+
         int bracketsToBeRemovedNmb = countStartingBraceletsNmb(equation);
         int insideBracketsDif = countInsideBrackets(equation, bracketsToBeRemovedNmb);
 
         bracketsToBeRemovedNmb -= insideBracketsDif;
 
         return removeBrackets(equation, bracketsToBeRemovedNmb);
+    }
+
+    private static void checkIfEqualNumberOfBrackets(String equation) {
+        int bracketsDif = 0;
+
+        for(int i = 0; i < equation.length(); ++i){
+            if(equation.charAt(i) == '(') --bracketsDif;
+            if(equation.charAt(i) == ')') ++bracketsDif;
+        }
+
+        if(bracketsDif != 0) throw new WrongEquationException("Unequal number of opening/closing brackets");
     }
 
     private static int countInsideBrackets(@NotNull String equation, int bracketsToBeRemovedNmb) {
