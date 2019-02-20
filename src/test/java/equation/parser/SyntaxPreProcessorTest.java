@@ -14,12 +14,12 @@ class SyntaxPreProcessorTest {
 
     @BeforeAll
     static void startTests(){
-        log.info("Started equationParser Tests");
+        log.info("Started SyntaxPreProcessor Tests");
     }
 
     @AfterAll
     static void endTests(){
-        log.info("Finished equationParser Tests");
+        log.info("Finished SyntaxPreProcessor Tests");
     }
 
     @Test
