@@ -6,14 +6,17 @@ import actions.basic.Div;
 import actions.basic.Mul;
 import actions.basic.Sub;
 import actions.basic.Sum;
-import equation.parser.exception.EquationWithoutOperatorException;
+import equation.parser.exception.WrongEquationException;
 import equation.parser.exception.WrongOperatorException;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-import static equation.parser.Operator.*;
+import static equation.parser.Operator.DIV;
+import static equation.parser.Operator.MUL;
+import static equation.parser.Operator.SUB;
+import static equation.parser.Operator.SUM;
 import static java.lang.Double.parseDouble;
 
 //Parsing String equation to TwoParamsAction
@@ -21,7 +24,7 @@ import static java.lang.Double.parseDouble;
 public class EquationParser {
 
     public static BaseAction parse(String equation){
-        equation = BraceletPreProcessor.preProcess(equation);
+        equation = BracketPreProcessor.preProcess(equation);
 
         if(isSimple(equation)){
             return new Value(parseDouble(equation.trim()));
@@ -87,7 +90,7 @@ public class EquationParser {
         operatorIndex = getFirstOccurenceOfOperator(mulIndex, divIndex);
         if (operatorIndex != -1) return operatorIndex;
 
-        throw new EquationWithoutOperatorException("Getting index of operator from equation that had none");
+        throw new WrongEquationException("Getting index of operator from equation that had none");
     }
 
     private static Integer getFirstOccurenceOfOperator(int firstIndex, int secondIndex) {
